@@ -1,0 +1,61 @@
+<%- include('partials/_header.ejs') %>
+    <div class="container">
+        <div class="row">
+            <!-- formulario -->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/add" method="POST">
+                            <div class="form-group">
+                                <label for="id_tarea">Tarea</label>
+                                <input id="id_tarea" class="form-control" type="text" name="title" placeholder="Inserte una tarea">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_tarea">Tarea</label>
+                                <textarea name="description" cols="80" class="form-control" placeholder="Inserte una descripción"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- tabla de listado -->
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Nro</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i<tasks.length; i++) { %>
+                            <tr>
+                                <td><%=i+1%></td>
+                                <td><%=tasks[i].title%></td>
+                                <td><%=tasks[i].description%></td>
+                                <td>
+                                    <a href="/turn/<%= tasks[i]._id%>" 
+                                        class="btn <%= tasks[i].status ? 'btn-success' : 'btn-dark' %> ">
+                                        Hecho
+                                    </a>        
+                                    <a href="/delete/<%=tasks[i]._id%>" class="btn btn-danger">Borrar</a>
+                                    <a href="/edit/<%= tasks[i]._id%>" class="btn btn-info">Actualizar</a>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+<%- include('partials/_footer.ejs') %>
